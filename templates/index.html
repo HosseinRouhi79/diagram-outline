@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text → Chart JSON · Powered by Outlines</title>
+    <meta name="description" content="Extract structured, chart-ready JSON from any plain text using Outlines structured generation.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<!-- ── Animated background ─────────────────────────────────────────── -->
+<div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+</div>
+
+<!-- ── Header ──────────────────────────────────────────────────────── -->
+<header class="header">
+    <div class="header-inner">
+        <div class="logo">
+            <span class="logo-icon">⬡</span>
+            <h1>Text <span class="arrow">→</span> Chart JSON</h1>
+        </div>
+        <p class="subtitle">Structured data extraction powered by <a href="https://github.com/dottxt-ai/outlines" target="_blank" rel="noopener">Outlines</a></p>
+    </div>
+</header>
+
+<!-- ── Main content ────────────────────────────────────────────────── -->
+<main class="main">
+
+    <!-- Input panel -->
+    <section class="panel panel-input" id="input-panel">
+        <div class="panel-header">
+            <div class="panel-title">
+                <span class="panel-icon">📝</span>
+                <h2>Input Text</h2>
+            </div>
+            <div class="model-badge" id="model-badge">
+                <span class="badge-dot"></span>
+                <span class="badge-label">Local</span>
+                <span class="badge-model" id="badge-model-name">loading…</span>
+            </div>
+        </div>
+
+        <div class="textarea-wrap">
+            <textarea
+                id="input-text"
+                placeholder="Paste any text containing data…&#10;&#10;For example: 'The platform saw strong growth. January had 2,500 signups, February 3,400, March 4,200.'"
+                spellcheck="false"
+            ></textarea>
+            <div class="char-count" id="char-count">0 chars</div>
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-primary" id="extract-btn" type="button">
+                <span class="btn-text">Extract JSON</span>
+                <span class="btn-loader" aria-hidden="true">
+                    <span class="spinner"></span>
+                    Extracting…
+                </span>
+            </button>
+            <button class="btn btn-ghost" id="clear-btn" type="button">Clear</button>
+        </div>
+
+        <!-- Example chips -->
+        <div class="examples-section">
+            <p class="examples-label">Try an example:</p>
+            <div class="examples-chips" id="examples-chips">
+                <!-- filled by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Output panel -->
+    <section class="panel panel-output" id="output-panel">
+        <div class="panel-header">
+            <div class="panel-title">
+                <span class="panel-icon">📊</span>
+                <h2>Chart JSON</h2>
+            </div>
+            <div class="output-actions">
+                <button class="btn-icon" id="copy-btn" title="Copy JSON" disabled>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    <span class="copy-label">Copy</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Empty state -->
+        <div class="output-empty" id="output-empty">
+            <div class="empty-icon">⬡</div>
+            <p>Your structured JSON will appear here</p>
+            <span>Paste text on the left and click <strong>Extract JSON</strong></span>
+        </div>
+
+        <!-- Error state -->
+        <div class="output-error hidden" id="output-error">
+            <div class="error-icon">⚠️</div>
+            <p class="error-title">Extraction Failed</p>
+            <p class="error-message" id="error-message"></p>
+        </div>
+
+        <!-- JSON output -->
+        <div class="output-json hidden" id="output-json">
+            <!-- Meta chips -->
+            <div class="meta-chips" id="meta-chips"></div>
+            <!-- JSON code block -->
+            <pre class="json-pre"><code id="json-code"></code></pre>
+        </div>
+
+        <!-- Chart preview -->
+        <div class="chart-preview hidden" id="chart-preview">
+            <div class="panel-header mini">
+                <div class="panel-title">
+                    <span class="panel-icon">📈</span>
+                    <h3>Quick Preview</h3>
+                </div>
+            </div>
+            <canvas id="chart-canvas"></canvas>
+        </div>
+    </section>
+</main>
+
+<!-- ── Footer ──────────────────────────────────────────────────────── -->
+<footer class="footer">
+    <p>Built with <a href="https://github.com/dottxt-ai/outlines" target="_blank" rel="noopener">Outlines</a> · Guaranteed structured generation</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>
