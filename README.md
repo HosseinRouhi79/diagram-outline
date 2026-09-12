@@ -49,6 +49,20 @@ python extract.py --examples
 ```
 
 ### Use a different model
+You can pass environment variables inline or create a `.env` file at the root of the project to set your configuration.
+
+**Via `.env` file:**
+```env
+OLLAMA_URL=http://172.16.20.77:11434
+MODEL_NAME=qwen2.5:7b
+PORT=5000
+```
+Then just run:
+```bash
+python app.py
+```
+
+**Via command line:**
 ```bash
 # CLI
 python extract.py --model Qwen/Qwen2.5-1.5B-Instruct --text "..."
@@ -80,6 +94,7 @@ MODEL_NAME=Qwen/Qwen2.5-1.5B-Instruct python app.py
 ## Project Structure
 
 ```
+├── .env              # Configuration variables (optional)
 ├── app.py            # Flask web server (Web UI)
 ├── extract.py        # Core extraction logic + CLI
 ├── schema.py         # Pydantic models (ChartPayload)
